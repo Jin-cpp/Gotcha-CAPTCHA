@@ -1,0 +1,254 @@
+/* ==========================================================================
+   touhou-boo: 多多良小伞整蛊网站主题与惊吓动画样式表
+   包含博丽神社伪装页面、屏幕剧烈震动、红光频闪与碎屏动画
+   ========================================================================== */
+
+:root {
+  --primary-red: #d32f2f; /* 神社巫女红主题色 */
+  --gold-accent: #fbc02d; /* 香油钱金色点缀 */
+  --bg-color: #f7f7f9;    /* 背景浅灰基调 */
+  --card-bg: #ffffff;     /* 卡片白色背景 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: #333333;
+  overflow-x: hidden;
+}
+
+/* 1. 神社认证通道主页面容器 */
+.portal-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 20%, #ffebee 0%, #f7f7f9 65%);
+}
+
+/* 认证卡片主体 */
+.portal-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  padding: 32px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* 官方认证红底胶囊徽章 */
+.shrine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffebee;
+  color: var(--primary-red);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.portal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.portal-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+/* 伪装验证码挂载区 */
+.captcha-mount-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* 卡片页脚信息 */
+.portal-footer {
+  font-size: 12px;
+  color: #999;
+  border-top: 1px dashed #eee;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   2. 屏幕剧烈震颤特效 (Screen Shaking Effect)
+   ========================================================================== */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-4px, 0, 0) rotate(-1deg); }
+  20%, 80% { transform: translate3d(6px, 0, 0) rotate(1.5deg); }
+  30%, 50%, 70% { transform: translate3d(-8px, -4px, 0) rotate(-1deg); }
+  40%, 60% { transform: translate3d(8px, 4px, 0) rotate(1deg); }
+}
+
+/* 动态施加给 body 节点的震动类 */
+.screen-shaking {
+  animation: shake 0.15s infinite;
+}
+
+/* ==========================================================================
+   3. 多多良小伞全屏惊吓浮层 (Kogasa Jumpscare Overlay)
+   ========================================================================== */
+.kogasa-scare-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 红色高频闪烁警报频闪 (Strobe Red Flash) */
+.kogasa-flash {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 0, 0, 0.4);
+  animation: flashStrobe 0.1s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes flashStrobe {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.55; }
+}
+
+/* 全屏碎屏玻璃裂纹 (Glass Shatter Crack SVG) */
+.kogasa-glass-crack {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+}
+
+/* 惊吓主体内容包裹层 */
+.kogasa-scare-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  padding: 20px;
+  animation: zoomInKogasa 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 小伞突击放大动画 */
+@keyframes zoomInKogasa {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 小伞惊吓大图样式 */
+.kogasa-scare-image {
+  width: 360px;
+  height: 360px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 68, 0.8));
+}
+
+/* 东方 AVG 对话框 (Dialogue Box) */
+.kogasa-dialogue-box {
+  background: rgba(18, 0, 24, 0.92);
+  border: 2px solid #ff1744;
+  border-radius: 8px;
+  padding: 20px;
+  color: #ffffff;
+  margin-top: -30px;
+  width: 100%;
+  box-shadow: 0 0 25px rgba(255, 23, 68, 0.6);
+  box-sizing: border-box;
+}
+
+.kogasa-dialogue-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* 角色标签徽章 */
+.kogasa-tag {
+  background: #ff1744;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* 状态标语 */
+.kogasa-status {
+  font-size: 12px;
+  color: #ffd54f;
+}
+
+/* 经典惊吓台词 */
+.kogasa-quote {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ff5252;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.kogasa-desc {
+  font-size: 13px;
+  color: #e0e0e0;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+/* 重新挑战（再被吓一次）渐变按钮 */
+.kogasa-retry-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff1744, #d500f9);
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.kogasa-retry-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.kogasa-retry-btn:active {
+  transform: scale(0.98);
+}
+

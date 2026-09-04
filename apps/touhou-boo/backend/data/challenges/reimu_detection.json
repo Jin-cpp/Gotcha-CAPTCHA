@@ -1,0 +1,24 @@
+{
+  "id": "reimu_detection",
+  "mode": "random_pool",
+  "rows": 3,
+  "columns": 3,
+  "title": "选择所有包含以下内容的方块",
+  "target": "博丽灵梦 (Hakurei Reimu)",
+  "instruction": "请选出所有博丽神社巫女。如果不确定，请注意红色大蝴蝶结与巫女服。",
+  "minTargets": 1,
+  "maxTargets": 3,
+  "targetPool": [
+    { "id": "reimu_1", "imageUrl": "/assets/reimu.svg", "isTarget": true },
+    { "id": "reimu_2", "imageUrl": "/assets/reimu.svg", "isTarget": true },
+    { "id": "reimu_3", "imageUrl": "/assets/reimu.svg", "isTarget": true },
+    { "id": "reimu_4", "imageUrl": "/assets/reimu.svg", "isTarget": true }
+  ],
+  "distractorPool": [
+    { "id": "marisa_1", "imageUrl": "/assets/marisa.svg", "isTarget": false },
+    { "id": "sanae_1", "imageUrl": "/assets/sanae.svg", "isTarget": false },
+    { "id": "cirno_1", "imageUrl": "/assets/cirno.svg", "isTarget": false },
+    { "id": "kogasa_1", "imageUrl": "/assets/kogasa.svg", "isTarget": false },
+    { "id": "youmu_1", "imageUrl": "/assets/youmu.svg", "isTarget": false }
+  ]
+}

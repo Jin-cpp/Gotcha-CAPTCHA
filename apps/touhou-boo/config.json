@@ -1,0 +1,10 @@
+{
+  "app_name": "touhou-boo",
+  "title": "博丽神社香油钱安全验证",
+  "port": 8080,
+  "max_fails_to_scare": 3,
+  "min_no_repeat_count": 3,
+  "audio_file": "/urameshiya.mp3",
+  "scare_image": "/kogasa_scare.svg"
+}
+

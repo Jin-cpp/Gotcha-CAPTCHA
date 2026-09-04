@@ -1,0 +1,28 @@
+{
+  "id": "kogasa_fixed_4x4",
+  "mode": "fixed_layout",
+  "rows": 4,
+  "columns": 4,
+  "title": "选择所有包含以下内容的方块",
+  "target": "潜伏在 4x4 阵列中的唐伞妖怪",
+  "instruction": "在 4x4 的全位置监控方阵中，指定选出所有潜伏的小伞（其余均为普通雨伞或干扰项）。",
+  "fixedTiles": [
+    { "id": "cell_0_0", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_0_1", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_0_2", "imageUrl": "/assets/kogasa.svg", "isTarget": true },
+    { "id": "cell_0_3", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_1_0", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_1_1", "imageUrl": "/assets/kogasa.svg", "isTarget": true },
+    { "id": "cell_1_2", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_1_3", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_2_0", "imageUrl": "/assets/reimu.svg", "isTarget": false },
+    { "id": "cell_2_1", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_2_2", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_2_3", "imageUrl": "/assets/kogasa.svg", "isTarget": true },
+    { "id": "cell_3_0", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_3_1", "imageUrl": "/assets/kogasa.svg", "isTarget": true },
+    { "id": "cell_3_2", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
+    { "id": "cell_3_3", "imageUrl": "/assets/marisa.svg", "isTarget": false }
+  ]
+}
+

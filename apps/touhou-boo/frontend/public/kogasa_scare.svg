@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4a0e4e" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#180021" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#050008" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="umbrellaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#26c6da"/>
+      <stop offset="50%" stop-color="#00acc1"/>
+      <stop offset="100%" stop-color="#006064"/>
+    </linearGradient>
+    <linearGradient id="tongueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff4081"/>
+      <stop offset="100%" stop-color="#c2185b"/>
+    </linearGradient>
+    <filter id="ghostGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Atmospheric Background -->
+  <rect width="800" height="800" fill="url(#bgGlow)"/>
+
+  <!-- Comic Action Rays / Shock Lines -->
+  <g stroke="#ff1744" stroke-width="2" opacity="0.35">
+    <line x1="400" y1="400" x2="0" y2="0"/>
+    <line x1="400" y1="400" x2="800" y2="0"/>
+    <line x1="400" y1="400" x2="0" y2="800"/>
+    <line x1="400" y1="400" x2="800" y2="800"/>
+    <line x1="400" y1="400" x2="400" y2="0"/>
+    <line x1="400" y1="400" x2="400" y2="800"/>
+    <line x1="400" y1="400" x2="0" y2="400"/>
+    <line x1="400" y1="400" x2="800" y2="400"/>
+    <line x1="400" y1="400" x2="100" y2="0"/>
+    <line x1="400" y1="400" x2="700" y2="0"/>
+    <line x1="400" y1="400" x2="100" y2="800"/>
+    <line x1="400" y1="400" x2="700" y2="800"/>
+  </g>
+
+  <!-- Ghost Flames (Hitodama) -->
+  <g filter="url(#ghostGlow)">
+    <!-- Left Fire -->
+    <path d="M 120 280 C 80 230 160 170 120 130 C 180 180 160 250 120 280 Z" fill="#00e5ff" opacity="0.8"/>
+    <!-- Right Fire -->
+    <path d="M 680 320 C 720 270 640 210 680 170 C 620 220 640 290 680 320 Z" fill="#76ff03" opacity="0.8"/>
+  </g>
+
+  <!-- GIANT KOGASA UMBRELLA -->
+  <!-- Umbrella Canopy -->
+  <path d="M 100 420 Q 400 60 700 420 Q 400 480 100 420 Z" fill="url(#umbrellaGrad)" stroke="#004d40" stroke-width="6"/>
+
+  <!-- Umbrella Ribs -->
+  <path d="M 400 130 L 400 450" stroke="#004d40" stroke-width="4" opacity="0.7"/>
+  <path d="M 400 130 Q 320 260 220 435" stroke="#004d40" stroke-width="3" opacity="0.6"/>
+  <path d="M 400 130 Q 480 260 580 435" stroke="#004d40" stroke-width="3" opacity="0.6"/>
+  <path d="M 400 130 Q 250 240 140 422" stroke="#004d40" stroke-width="3" opacity="0.6"/>
+  <path d="M 400 130 Q 550 240 660 422" stroke="#004d40" stroke-width="3" opacity="0.6"/>
+
+  <!-- Big Creepy Cyclops Eye on Umbrella -->
+  <g filter="url(#ghostGlow)">
+    <ellipse cx="400" cy="270" rx="85" ry="85" fill="#ffffff" stroke="#ff1744" stroke-width="4"/>
+    <!-- Blood vessels in eye -->
+    <path d="M 320 270 Q 350 265 365 270" stroke="#d50000" stroke-width="2" fill="none"/>
+    <path d="M 480 270 Q 450 265 435 270" stroke="#d50000" stroke-width="2" fill="none"/>
+    <path d="M 400 190 Q 405 220 400 235" stroke="#d50000" stroke-width="2" fill="none"/>
+    <!-- Iris & Pupil -->
+    <ellipse cx="400" cy="270" rx="46" ry="46" fill="#880e4f"/>
+    <ellipse cx="400" cy="270" rx="28" ry="28" fill="#d500f9"/>
+    <circle cx="390" cy="255" r="12" fill="#ffffff"/>
+    <circle cx="415" cy="285" r="6" fill="#ffffff"/>
+  </g>
+
+  <!-- Huge Giant Tongue Sticking Out -->
+  <path d="M 340 430 Q 310 650 410 710 Q 510 650 460 430 Z" fill="url(#tongueGrad)" stroke="#880e4f" stroke-width="6"/>
+  <path d="M 400 450 L 400 660" stroke="#ad1457" stroke-width="4" stroke-linecap="round"/>
+  <!-- Saliva Drops -->
+  <circle cx="410" cy="735" r="8" fill="#80deea" opacity="0.75"/>
+  <circle cx="350" cy="620" r="5" fill="#80deea" opacity="0.6"/>
+
+  <!-- KOGASA GIRL CHARACTER BODY (Peeking right under the umbrella) -->
+  <!-- Face -->
+  <circle cx="400" cy="520" r="95" fill="#ffe0b2" stroke="#ffb74d" stroke-width="3"/>
+
+  <!-- Fluffy Cyan Hair -->
+  <path d="M 300 470 Q 400 430 500 470 Q 520 540 495 560 Q 400 520 305 560 Z" fill="#26c6da"/>
+
+  <!-- Left Eye (Ruby Red) -->
+  <ellipse cx="360" cy="515" rx="18" ry="24" fill="#ffffff"/>
+  <ellipse cx="360" cy="515" rx="12" ry="16" fill="#d50000"/>
+  <circle cx="356" cy="508" r="5" fill="#ffffff"/>
+
+  <!-- Right Eye (Cyan / Turquoise Blue) -->
+  <ellipse cx="440" cy="515" rx="18" ry="24" fill="#ffffff"/>
+  <ellipse cx="440" cy="515" rx="12" ry="16" fill="#00b0ff"/>
+  <circle cx="436" cy="508" r="5" fill="#ffffff"/>
+
+  <!-- Wide Grinning Scare Mouth with Cute Little Fang -->
+  <path d="M 355 560 Q 400 605 445 560 Z" fill="#b71c1c" stroke="#880e4f" stroke-width="3"/>
+  <polygon points="375,560 385,560 380,572" fill="#ffffff"/>
+  <polygon points="415,560 425,560 420,572" fill="#ffffff"/>
+
+  <!-- Single Wooden Geta (Leg) at Bottom -->
+  <rect x="390" y="705" width="20" height="70" fill="#8d6e63" rx="4"/>
+  <rect x="360" y="765" width="80" height="15" fill="#4e342e" rx="4"/>
+
+  <!-- SPOOKY JAPANESE TEXT: 恨めしや〜！ -->
+  <g filter="url(#ghostGlow)">
+    <text x="400" y="90" font-family="'Hiragino Sans', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="64" font-weight="900" fill="#ff1744" text-anchor="middle" letter-spacing="8">
+      恨 め し や 〜 ！
+    </text>
+    <text x="400" y="90" font-family="'Hiragino Sans', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="64" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="8" stroke="#d50000" stroke-width="2">
+      恨 め し や 〜 ！
+    </text>
+  </g>
+  <text x="400" y="775" font-family="sans-serif" font-size="20" font-weight="bold" fill="#ffd54f" text-anchor="middle" letter-spacing="3">
+    👻 吓 到 了 吧 ？！—— 多 多 良 小 伞 参 上 ！ 👻
+  </text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <rect width="100" height="100" fill="#e8f5e9"/>
+  <!-- Green Hair -->
+  <circle cx="50" cy="46" r="28" fill="#66bb6a"/>
+  <!-- Face -->
+  <circle cx="50" cy="50" r="22" fill="#ffe4d6"/>
+  <!-- Frog Hairpin -->
+  <circle cx="34" cy="34" r="7" fill="#43a047"/>
+  <circle cx="32" cy="32" r="2" fill="#fff"/>
+  <circle cx="36" cy="32" r="2" fill="#fff"/>
+  <!-- Eyes -->
+  <ellipse cx="42" cy="50" rx="3" ry="5" fill="#2e7d32"/>
+  <ellipse cx="58" cy="50" rx="3" ry="5" fill="#2e7d32"/>
+  <!-- Blue / White Priestess Outfit -->
+  <path d="M 30 72 L 50 84 L 70 72 L 80 100 L 20 100 Z" fill="#ffffff"/>
+  <path d="M 40 78 L 50 86 L 60 78 L 60 100 L 40 100 Z" fill="#1976d2"/>
+</svg>

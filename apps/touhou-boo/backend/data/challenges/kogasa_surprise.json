@@ -1,0 +1,20 @@
+{
+  "id": "kogasa_surprise",
+  "mode": "fixed_layout",
+  "rows": 3,
+  "columns": 3,
+  "title": "选择所有包含以下内容的方块",
+  "target": "普通无害的和伞",
+  "instruction": "请选出所有不会咬人、不会伸长舌头、也没有异色瞳的普通雨伞。",
+  "fixedTiles": [
+    { "id": "u1", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": true },
+    { "id": "u2", "imageUrl": "/assets/kogasa.svg", "isTarget": false },
+    { "id": "u3", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": true },
+    { "id": "u4", "imageUrl": "/assets/kogasa.svg", "isTarget": false },
+    { "id": "u5", "imageUrl": "/assets/reimu.svg", "isTarget": false },
+    { "id": "u6", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": true },
+    { "id": "u7", "imageUrl": "/assets/kogasa.svg", "isTarget": false },
+    { "id": "u8", "imageUrl": "/assets/marisa.svg", "isTarget": false },
+    { "id": "u9", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": true }
+  ]
+}

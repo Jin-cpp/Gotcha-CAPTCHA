@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- 定义带阴影的东方风弹幕发光滤镜 -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- 组1：博丽红 (灵梦) -->
+  <g transform="rotate(0, 60, 60)">
+    <!-- 流线型主箭头 (借鉴阴阳玉曲面) -->
+    <path 
+      d="M 58 15 A 42 42 0 0 1 98 40 L 88 44 L 110 58 L 112 32 L 102 36 A 50 50 0 0 0 58 5 Z" 
+      fill="#E53935" 
+    />
+    <!-- 弹幕拖尾 -->
+    <circle cx="45" cy="8" r="4.5" fill="#E53935" opacity="0.8" />
+    <circle cx="32" cy="13" r="3" fill="#E53935" opacity="0.5" />
+    <circle cx="21" cy="20" r="1.5" fill="#E53935" opacity="0.3" />
+  </g>
+
+  <!-- 组2：星光黄 (魔理沙) -->
+  <g transform="rotate(120, 60, 60)">
+    <path 
+      d="M 58 15 A 42 42 0 0 1 98 40 L 88 44 L 110 58 L 112 32 L 102 36 A 50 50 0 0 0 58 5 Z" 
+      fill="#FDD835" 
+    />
+    <circle cx="45" cy="8" r="4.5" fill="#FDD835" opacity="0.8" />
+    <circle cx="32" cy="13" r="3" fill="#FDD835" opacity="0.5" />
+    <circle cx="21" cy="20" r="1.5" fill="#FDD835" opacity="0.3" />
+  </g>
+
+  <!-- 组3：墨黑 (八卦炉边框/太极基底) -->
+  <g transform="rotate(240, 60, 60)">
+    <path 
+      d="M 58 15 A 42 42 0 0 1 98 40 L 88 44 L 110 58 L 112 32 L 102 36 A 50 50 0 0 0 58 5 Z" 
+      fill="#212121" 
+    />
+    <circle cx="45" cy="8" r="4.5" fill="#212121" opacity="0.8" />
+    <circle cx="32" cy="13" r="3" fill="#212121" opacity="0.5" />
+    <circle cx="21" cy="20" r="1.5" fill="#212121" opacity="0.3" />
+  </g>
+</svg>

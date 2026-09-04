@@ -1,0 +1,24 @@
+{
+  "name": "gotcha-captcha-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prank CAPTCHA Framework Monorepo",
+  "workspaces": [
+    "packages/*",
+    "apps/touhou-boo/frontend"
+  ],
+  "scripts": {
+    "dev": "npm --workspace=apps/touhou-boo/frontend run dev",
+    "build": "npm --workspace=apps/touhou-boo/frontend run build"
+  },
+  "keywords": [
+    "captcha",
+    "prank",
+    "react",
+    "golang",
+    "touhou"
+  ],
+  "author": "",
+  "license": "GPL-3.0"
+}
+
