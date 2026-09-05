@@ -41,7 +41,7 @@ pnpm-debug.log*
 *.dylib
 *.test
 *.out
-/apps/touhou-boo/backend/touhou-boo-server
+/apps/touhou-boo/backend/server
 
 # Go local
 vendor/

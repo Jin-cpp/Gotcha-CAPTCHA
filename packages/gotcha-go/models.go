@@ -45,6 +45,7 @@ type Challenge struct {
 	Pool           []Tile        `json:"pool,omitempty"`           // 随机池模式：统一候选池（由各方块的 isTarget 标记正误）
 	FixedTiles     []Tile        `json:"fixedTiles,omitempty"`     // 固定布局模式：按坐标位置指定的固定方块列表
 	Tiles          []Tile        `json:"tiles,omitempty"`          // 向后兼容字段：若未指定 pools/fixedTiles 则作为默认方块列表
+	Seamless       bool          `json:"seamless,omitempty"`       // 是否启用无间隙贴合模式（适用于单张大图切割切片题型）
 }
 
 // ClientChallenge 表示下发给前端界面的挑战题目（客户端脱敏视图）。
@@ -58,6 +59,7 @@ type ClientChallenge struct {
 	Title       string        `json:"title"`       // 挑战大标题
 	Target      string        `json:"target"`      // 目标对象名称
 	Instruction string        `json:"instruction"` // 辅助说明文字
+	Seamless    bool          `json:"seamless"`    // 是否启用无间隙贴合模式
 	Tiles       []ClientTile  `json:"tiles"`       // 组装并脱敏后的方块列表（长度为 Rows * Columns）
 }
 

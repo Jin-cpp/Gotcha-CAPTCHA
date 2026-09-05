@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import gotchaLogo from './assets/gotcha_logo.svg';
 import './style.css';
 
@@ -7,13 +7,14 @@ import './style.css';
  * 纯通用组件库层实现，不包含特定业务或整蛊主题代码。
  *
  * @param {Object} props
- * @param {Object} props.challenge 当前活跃的验证题目数据 { id, title, target, instruction, tiles: [{ id, imageUrl }] }
+ * @param {Object} props.challenge 当前活跃的挑战题目数据 { id, title, target, instruction, tiles: [{ id, imageUrl }] }
  * @param {Function} props.onVerify 异步校验回调 (selectedIds) => Promise<{ success: boolean, triggerScare?: boolean, message?: string, nextChallenge?: object }>
  * @param {Function} props.onRefresh 获取新题目的刷新回调
  * @param {Function} props.onScare 达到整蛊阈值时的触发回调
  * @param {string} [props.checkboxLabel="我不是机器人"] 复选框旁展示的文本
  * @param {string} [props.brandLogoSrc] 品牌标识外置图片素材地址，默认为 Gotcha-CAPTCHA 专属徽标
  * @param {number} [props.checkDuration=1200] 点击复选框后思考旋转动画持续时间 (ms)
+ * @param {Function} [props.onBrandClick] 点击伪装品牌标识时的回调函数 (clickCount) => void
  */
 export function FakeCaptcha({
   challenge,
@@ -25,6 +26,7 @@ export function FakeCaptcha({
   checkboxLabel = '我不是机器人',
   brandLogoSrc = gotchaLogo,
   checkDuration = 1200,
+  onBrandClick,
 }) {
   // 1. 组件内部交互状态
   const [isChecked, setIsChecked] = useState(false);        // 验证码是否已成功通过打勾
@@ -33,6 +35,18 @@ export function FakeCaptcha({
   const [selectedIds, setSelectedIds] = useState(new Set());// 当前用户已勾选的方块 ID 集合
   const [isVerifying, setIsVerifying] = useState(false);    // 点击“验证”后的网络请求等待状态
   const [errorMessage, setErrorMessage] = useState('');     // 校验失败时的错误提示横幅内容
+  const [brandClickCount, setBrandClickCount] = useState(0);// 伪装品牌标识被点击的累计次数（方便后续彩蛋触发）
+  const [isBrandSpinning, setIsBrandSpinning] = useState(false); // 品牌标识是否正处于点击触发的旋转状态
+  const spinTimerRef = useRef(null);                        // 旋转动画定时器引用
+
+  // 组件卸载时清理旋转定时器
+  useEffect(() => {
+    return () => {
+      if (spinTimerRef.current) {
+        clearTimeout(spinTimerRef.current);
+      }
+    };
+  }, []);
 
   // 构造题目实例唯一标识（优先使用 instanceId，若无则结合 id 与方块 ID 序列）
   const challengeKey = challenge?.instanceId || (challenge?.id ? `${challenge.id}_${challenge?.tiles?.map((t) => t.id).join(',')}` : '');
@@ -56,6 +70,33 @@ export function FakeCaptcha({
       setIsChecking(false);
       setShowPopup(true);
     }, checkDuration);
+  };
+
+  /**
+   * 处理伪装品牌标识点击事件：
+   * 1. 阻止事件冒泡至外层 gotcha-anchor，避免触发验证码；
+   * 2. 累加点击计数器并触发 onBrandClick 回调，方便后续扩展彩蛋；
+   * 3. 触发品牌 Logo 自身的螺旋旋转动画。
+   *
+   * @param {React.MouseEvent} e
+   */
+  const handleBrandClick = (e) => {
+    e.stopPropagation();
+    const nextCount = brandClickCount + 1;
+    setBrandClickCount(nextCount);
+    onBrandClick?.(nextCount);
+
+    // 触发旋转动画 (若正在旋转中点击则重置并重新执行 1.2s 弹幕旋转)
+    setIsBrandSpinning(false);
+    if (spinTimerRef.current) {
+      clearTimeout(spinTimerRef.current);
+    }
+    requestAnimationFrame(() => {
+      setIsBrandSpinning(true);
+      spinTimerRef.current = setTimeout(() => {
+        setIsBrandSpinning(false);
+      }, 1200);
+    });
   };
 
   /**
@@ -121,9 +162,10 @@ export function FakeCaptcha({
     onRefresh?.();
   };
 
-  // 动态矩阵规格：提取列数与行数（默认 3x3）
+  // 动态矩阵规格：提取列数与行数（默认 3x3）以及是否开启无间隙贴合模式
   const columns = challenge?.columns || 3;
   const rows = challenge?.rows || 3;
+  const isSeamless = Boolean(challenge?.seamless);
   // 根据列数自适应弹窗宽度（3列约390px，4列约480px，2列约320px）
   const popupWidth = Math.min(Math.max(columns * 115 + 40, 320), 560);
 
@@ -154,11 +196,16 @@ export function FakeCaptcha({
         </div>
 
         {/* 伪装的 Google reCAPTCHA 品牌标识 */}
-        <div className="gotcha-branding">
+        <div
+          className="gotcha-branding"
+          onClick={handleBrandClick}
+          title="GOPTCHA"
+          data-brand-clicks={brandClickCount}
+        >
           <img
             src={brandLogoSrc}
             alt="GOPTCHA logo"
-            className={`gotcha-brand-logo gotcha-logo ${isChecking ? 'spinning' : ''}`}
+            className={`gotcha-brand-logo gotcha-logo ${isBrandSpinning ? 'spinning' : ''}`}
             draggable="false"
           />
           <span className="gotcha-brand-text">GOPTCHA</span>
@@ -193,10 +240,10 @@ export function FakeCaptcha({
               </div>
             )}
 
-            {/* 图片矩阵网格 (动态 repeat 列数) */}
-            <div className="gotcha-grid-container">
+            {/* 图片矩阵网格 (动态 repeat 列数，支持无间隙贴合模式) */}
+            <div className={`gotcha-grid-container ${isSeamless ? 'seamless' : ''}`}>
               <div
-                className="gotcha-grid"
+                className={`gotcha-grid ${isSeamless ? 'seamless' : ''}`}
                 style={{
                   gridTemplateColumns: `repeat(${columns}, 1fr)`,
                 }}
@@ -206,7 +253,7 @@ export function FakeCaptcha({
                   return (
                     <div
                       key={tile.id}
-                      className={`gotcha-tile ${isSelected ? 'selected' : ''}`}
+                      className={`gotcha-tile ${isSelected ? 'selected' : ''} ${isSeamless ? 'seamless' : ''}`}
                       onClick={() => handleTileClick(tile.id)}
                     >
                       <img src={tile.imageUrl} alt="challenge item" />

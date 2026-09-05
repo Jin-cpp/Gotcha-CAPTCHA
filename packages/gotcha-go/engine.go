@@ -456,6 +456,7 @@ func (e *Engine) GenerateChallenge(sessionID string) (*ClientChallenge, error) {
 		Title:       original.Title,
 		Target:      original.Target,
 		Instruction: original.Instruction,
+		Seamless:    original.Seamless,
 		Tiles:       clientTiles,
 	}, nil
 }

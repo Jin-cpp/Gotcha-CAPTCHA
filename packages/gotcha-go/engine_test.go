@@ -340,3 +340,90 @@ func TestNonRepeatingQueueSingleChallenge(t *testing.T) {
 		}
 	}
 }
+
+// TestSeamlessModeChallenge 验证无间隙模式 (Seamless Mode) 属性的正确解析与脱敏传递。
+func TestSeamlessModeChallenge(t *testing.T) {
+	engine := NewEngine(3)
+
+	// 1. 测试启用了无间隙模式的题目
+	seamlessChal := Challenge{
+		ID:          "puzzle-seamless",
+		Mode:        ModeFixedLayout,
+		Rows:        4,
+		Columns:     4,
+		Seamless:    true,
+		Title:       "选择包含目标切片的方块",
+		Target:      "目标切片",
+		Instruction: "无间隙模式拼图验证",
+		FixedTiles:  make([]Tile, 16),
+	}
+	for i := 0; i < 16; i++ {
+		seamlessChal.FixedTiles[i] = Tile{
+			ID:       fmt.Sprintf("slice_%d", i),
+			ImageURL: fmt.Sprintf("/slice_%d.png", i),
+			IsTarget: i == 0,
+		}
+	}
+	engine.AddChallenge(seamlessChal)
+
+	// 2. 测试未启用无间隙模式的普通题目
+	normalChal := Challenge{
+		ID:          "normal-with-gap",
+		Mode:        ModeFixedLayout,
+		Rows:        3,
+		Columns:     3,
+		Seamless:    false,
+		Title:       "选择所有正确方块",
+		Target:      "普通目标",
+		Instruction: "正常带间隙验证",
+		FixedTiles:  make([]Tile, 9),
+	}
+	for i := 0; i < 9; i++ {
+		normalChal.FixedTiles[i] = Tile{
+			ID:       fmt.Sprintf("item_%d", i),
+			ImageURL: fmt.Sprintf("/item_%d.png", i),
+			IsTarget: i == 0,
+		}
+	}
+	engine.AddChallenge(normalChal)
+
+	// 分别生成并断言 Seamless 标志
+	for i := 0; i < 10; i++ {
+		chal, err := engine.GenerateChallenge("")
+		if err != nil {
+			t.Fatalf("出题失败: %v", err)
+		}
+		if chal.ID == "puzzle-seamless" && !chal.Seamless {
+			t.Fatalf("期望题目 %s 的 Seamless 为 true，但实际为 false", chal.ID)
+		}
+		if chal.ID == "normal-with-gap" && chal.Seamless {
+			t.Fatalf("期望题目 %s 的 Seamless 为 false，但实际为 true", chal.ID)
+		}
+	}
+}
+
+// TestLoadChallengesFromDirSeamless 验证从实际 JSON 文件目录加载时，Seamless 字段能被准确反序列化。
+func TestLoadChallengesFromDirSeamless(t *testing.T) {
+	engine := NewEngine(3)
+	challengesDir := "../../apps/touhou-boo/backend/data/challenges"
+	err := engine.LoadChallengesFromDir(challengesDir)
+	if err != nil {
+		t.Fatalf("加载题库目录失败: %v", err)
+	}
+
+	chal, exists := engine.challenges["kogasa_fixed_4x4"]
+	if !exists {
+		t.Fatal("未在题库中找到 kogasa_fixed_4x4 题目")
+	}
+	if !chal.Seamless {
+		t.Fatal("期望 kogasa_fixed_4x4 的 Seamless 为 true，但实际为 false")
+	}
+
+	normalChal, exists := engine.challenges["reimu_detection"]
+	if !exists {
+		t.Fatal("未在题库中找到 reimu_detection 题目")
+	}
+	if normalChal.Seamless {
+		t.Fatal("期望 reimu_detection 的 Seamless 为 false，但实际为 true")
+	}
+}

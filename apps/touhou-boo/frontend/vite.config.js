@@ -11,6 +11,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173, // 前端开发服务器端口
+    build: {
+        assetsDir: 'static', // 将前端打包产物目录由 assets 改为 static
+    },
     proxy: {
       // 代理后端业务 API（如获取配置、获取挑战题目、验证答案）
       '/api': {

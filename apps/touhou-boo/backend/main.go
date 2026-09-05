@@ -21,8 +21,6 @@ type AppConfig struct {
 	MaxFailsToScare      int    `json:"max_fails_to_scare"`      // 触发小伞惊吓的最大连续失败次数
 	MinNoRepeatCount     int    `json:"min_no_repeat_count"`     // 至少不会抽到重复题的次数
 	MinNonRepeatingCount int    `json:"min_non_repeating_count"` // 兼容别名（支持不同命名习惯）
-	AudioFile            string `json:"audio_file"`              // 惊吓音效文件路径
-	ScareImage           string `json:"scare_image"`             // 惊吓图片路径
 }
 
 // loadConfig 尝试从多个候选路径加载并解析 config.json 配置文件；
@@ -34,8 +32,6 @@ func loadConfig() AppConfig {
 		Port:             8080,
 		MaxFailsToScare:  3,
 		MinNoRepeatCount: 2,
-		AudioFile:        "/urameshiya.mp3",
-		ScareImage:       "/kogasa_scare.svg",
 	}
 
 	paths := []string{"../config.json", "./config.json", "apps/touhou-boo/config.json"}

@@ -1,0 +1,24 @@
+{
+  "id": "fumo",
+  "mode": "fixed_layout",
+  "rows": 4,
+  "columns": 3,
+  "seamless": true,
+  "title": "选择所有包含以下内容的方块",
+  "target": "fumo",
+  "instruction": "请选出所有的fumo",
+  "fixedTiles": [
+    { "id": "cell_0_0", "imageUrl": "/assets/fumo1/1.png", "isTarget": false },
+    { "id": "cell_0_1", "imageUrl": "/assets/fumo1/2.png", "isTarget": false },
+    { "id": "cell_0_2", "imageUrl": "/assets/fumo1/3.png", "isTarget": false },
+    { "id": "cell_1_0", "imageUrl": "/assets/fumo1/4.png", "isTarget": false },
+    { "id": "cell_1_1", "imageUrl": "/assets/fumo1/5.png", "isTarget": false },
+    { "id": "cell_1_2", "imageUrl": "/assets/fumo1/6.png", "isTarget": false },
+    { "id": "cell_1_3", "imageUrl": "/assets/fumo1/7.png", "isTarget": true },
+    { "id": "cell_2_1", "imageUrl": "/assets/fumo1/8.png", "isTarget": true },
+    { "id": "cell_2_2", "imageUrl": "/assets/fumo1/9.png", "isTarget": true },
+    { "id": "cell_3_0", "imageUrl": "/assets/fumo1/10.png", "isTarget": false },
+    { "id": "cell_3_1", "imageUrl": "/assets/fumo1/11.png", "isTarget": true },
+    { "id": "cell_3_2", "imageUrl": "/assets/fumo1/12.png", "isTarget": false }
+  ]
+}

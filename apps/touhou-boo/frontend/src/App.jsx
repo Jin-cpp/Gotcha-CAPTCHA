@@ -6,7 +6,7 @@ import './App.css';
 
 /**
  * App: 多多良小伞整蛊网站（Touhou Boo）主页面。
- * 业务演示层核心组件：构造“博丽神社香油钱安全验证”伪装场景，
+ * 业务演示层核心组件：构造“博丽神社赛钱安全验证”伪装场景，
  * 接入纯净框架层的 FakeCaptcha，并与 KogasaScare 惊吓特效进行联动。
  */
 export function App() {
@@ -140,13 +140,16 @@ export function App() {
             failCount={failCount}
             maxFails={maxFails}
             checkboxLabel="证明你不是河童制造的机器人"
+            onBrandClick={(clickCount) => {
+              console.log(`[Gotcha-CAPTCHA] 伪装品牌标识已累计被点击 ${clickCount} 次`);
+            }}
           />
         </div>
 
         {/* 验证通过成功提示 */}
         {isVerified && (
           <div style={{ color: '#2e7d32', fontWeight: 'bold', margin: '12px 0' }}>
-            🎉 验证通过！香油钱箱已解锁（灵梦露出了欣慰的笑容）。
+            🎉 验证通过！赛钱箱已解锁（灵梦露出了欣慰的笑容）。
           </div>
         )}
 

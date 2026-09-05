@@ -145,6 +145,7 @@ type Challenge struct {
     Pool           []Tile        `json:"pool,omitempty"`
     FixedTiles     []Tile        `json:"fixedTiles,omitempty"`
     Tiles          []Tile        `json:"tiles,omitempty"`
+    Seamless       bool          `json:"seamless,omitempty"`   // 是否启用无间隙贴合模式（单大图切割切片题型）
 }
 
 // ClientChallenge 下发给前端渲染的挑战载荷
@@ -157,7 +158,8 @@ type ClientChallenge struct {
     Title       string        `json:"title"`
     Target      string        `json:"target"`
     Instruction string        `json:"instruction"`
-    Tiles       []ClientTile  `json:"tiles"` // 长度严格等于 Rows * Columns
+    Seamless    bool          `json:"seamless"` // 是否启用无间隙贴合模式
+    Tiles       []ClientTile  `json:"tiles"`    // 长度严格等于 Rows * Columns
 }
 ```
 
@@ -261,6 +263,18 @@ stateDiagram-v2
 ```
 同时依据列数动态计算弹窗尺寸，确保在 2 列、3 列、4 列甚至更多列情况下，方块比例（`aspect-ratio: 1 / 1`）与外层弹窗（`popupWidth = clamp(cols * 115 + 40, 320, 560)`）均保持完美居中展示。
 
+#### 无间隙贴合模式 (Seamless Sliced Matrix Mode)
+
+在传统的 Google reCAPTCHA 或街景人机验证中，常见一种**“将一张完整高分辨率大图等距切割为 4x4 或 3x3 矩阵切片，由受试者选出所有包含路标或车辆切片”**的经典题型。在此类题型下，传统的方块微缩动效与 5px 格间距会导致拼图产生缝隙与画面割裂。
+
+为此，Gotcha-CAPTCHA 原生引入了 **无间隙模式 (`seamless: true`)**：
+1. **零缝隙无缝拼接 (`gap: 0; border-radius: 0`)**：
+   - 消除图片单元格之间的所有外边距与内阴影；
+   - 图片使用 `display: block; object-fit: cover;`，确保各切片严丝合缝拼合为一张完整的全景大图。
+2. **防撕裂内嵌高亮动效 (Non-destructive Inset Highlighting)**：
+   - 普通模式下点击方块会执行微缩（`transform: scale(0.91)`）；但在无间隙切片模式下，缩放将使画面断层撕裂。
+   - Seamless 模式下禁用缩放（`transform: none`），改用内发光边框 `box-shadow: inset 0 0 0 3px #1a73e8` 与 `rgba(26, 115, 232, 0.2)` 半透明深色遮罩，配合左上角对勾角标，既精准反馈勾选状态，又绝对保持整图画面的严密连续性。
+
 ---
 
 ## 4. 业务演示层深度解析 (apps/touhou-boo)
@@ -357,16 +371,17 @@ stateDiagram-v2
 
 适用于“大图切片拼图（Sliced Puzzle）”或“指定位置雷达监控”，矩阵每个坐标的图片与答案完全固定，**不进行洗牌乱序**。
 
-#### 示例配置：`kogasa_fixed_4x4.json` (4×4 阵列)
+#### 示例配置：`kogasa_fixed_4x4.json` (4×4 阵列，开启无间隙贴合模式)
 ```json
 {
   "id": "kogasa_fixed_4x4",
   "mode": "fixed_layout",
   "rows": 4,
   "columns": 4,
+  "seamless": true,
   "title": "选择所有包含以下内容的方块",
   "target": "潜伏在 4x4 阵列中的唐伞妖怪",
-  "instruction": "在 4x4 的全位置监控方阵中，指定选出所有潜伏的小伞。",
+  "instruction": "在 4x4 的全位置监控方阵中，指定选出所有潜伏的小伞（其余均为普通雨伞或干扰项）。",
   "fixedTiles": [
     { "id": "cell_0_0", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
     { "id": "cell_0_1", "imageUrl": "/assets/umbrella_normal.svg", "isTarget": false },
